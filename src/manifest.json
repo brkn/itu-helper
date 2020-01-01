@@ -1,0 +1,16 @@
+{
+  "name": "itu-helper",
+  "version": "0.1.0",
+  "description": "Itü helper",
+  "manifest_version": 2,
+  "content_scripts": [
+    {
+      "matches": [],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  }
+}

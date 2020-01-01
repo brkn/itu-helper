@@ -1,0 +1,43 @@
+{
+  "name": "itu-helper",
+  "version": "0.2.0",
+  "description": "",
+  "main": "index.js",
+  "author": "brkn",
+  "license": "MPL-2.0",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "test:c": "rm -rf coverage/ && jest --coverage",
+    "webpack": "rm -rf dist/ && webpack",
+    "eslint": "./node_modules/.bin/eslint --ext .jsx,.js,.tsx,.ts src/",
+    "eslint:fix": "./node_modules/.bin/eslint --fix --ext .jsx,.js,.tsx,.ts src/",
+    "build": "npm run webpack; cp -v src/manifest.json dist/"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm test",
+      "pre-push": "npm test"
+    }
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@types/chrome": "0.0.91",
+    "@types/jest": "^24.0.23",
+    "@types/jsdom": "^12.2.4",
+    "@types/node": "^12.12.14",
+    "@typescript-eslint/eslint-plugin": "^2.9.0",
+    "@typescript-eslint/parser": "^2.9.0",
+    "eslint": "^6.7.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "husky": "^3.1.0",
+    "jest": "^24.9.0",
+    "jsdom": "^15.2.1",
+    "ts-jest": "^24.2.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "3.7.2",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
+  }
+}
