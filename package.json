@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "test": "jest",
-    "test:c": "rm -rf coverage/ && jest --coverage",
+    "test:coverage": "rm -rf coverage/ && jest --coverage",
     "webpack": "rm -rf dist/ && webpack",
     "eslint": "./node_modules/.bin/eslint --ext .jsx,.js,.tsx,.ts src/",
     "eslint:fix": "./node_modules/.bin/eslint --fix --ext .jsx,.js,.tsx,.ts src/",

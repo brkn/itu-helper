@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   entry: {
-    content: "./src/content.ts",
+    "course-list": "./src/course-list.ts",
     background: "./src/background.ts",
   },
   devtool: "inline-source-map",
