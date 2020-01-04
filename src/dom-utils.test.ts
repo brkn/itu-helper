@@ -7,13 +7,17 @@ import {
   createCheckboxInput,
 } from "./dom-utils";
 
+const mockEmptyEventHandler = (event: Event) => {
+  console.log(event);
+};
+
 describe("getFormElement", () => {
   beforeAll(async () => {
     const dom = await JSDOM.fromFile("mocks/course-page.html");
     (global as any).document = dom.window.document;
   });
 
-  test("returns a form element, not null", () => {
+  test("should return a form element, not null", () => {
     const returned = getFormElement();
 
     expect(returned).not.toBeNull();
@@ -24,7 +28,7 @@ describe("createWrappedCheckBox", () => {
   test("should create a label element succesfully", () => {
     const title = "this is title";
 
-    const checkBoxWrapper = createWrappedCheckBox(title);
+    const checkBoxWrapper = createWrappedCheckBox(title, mockEmptyEventHandler);
 
     const labelOfCheckbox = checkBoxWrapper.getElementsByTagName("label")[0];
     const mockLabel = createLabel("this-is-title", title);
@@ -35,16 +39,19 @@ describe("createWrappedCheckBox", () => {
   test("should create a checkbox input element succesfully", () => {
     const title = "this is title";
 
-    const checkBoxWrapper = createWrappedCheckBox(title);
+    const checkBoxWrapper = createWrappedCheckBox(title, mockEmptyEventHandler);
 
     const inputOfCheckbox = checkBoxWrapper.getElementsByTagName("input")[0];
-    const mockInput = createCheckboxInput(title);
+    const mockInput = createCheckboxInput(title, mockEmptyEventHandler);
 
     expect(inputOfCheckbox).toStrictEqual<HTMLInputElement>(mockInput);
   });
 
   test("should add classname correctly to wrapper div", () => {
-    const checkBoxWrapper = createWrappedCheckBox("title-1-2");
+    const checkBoxWrapper = createWrappedCheckBox(
+      "title-1-2",
+      mockEmptyEventHandler
+    );
     const classname = checkBoxWrapper.getAttribute("class");
 
     expect(classname).toBe("title-1-2 checkbox-wrapper");
@@ -73,7 +80,7 @@ describe("createLabel", () => {
 
 describe("createCheckboxInput", () => {
   test("should raise error when given empty string for id", () => {
-    expect(() => createCheckboxInput("")).toThrowError();
+    expect(() => createCheckboxInput("", mockEmptyEventHandler)).toThrowError();
   });
 
   test("should create a checkbox input succesfully", () => {
@@ -81,7 +88,7 @@ describe("createCheckboxInput", () => {
     mockInput.setAttribute("type", "checkbox");
     mockInput.setAttribute("id", "input-id");
 
-    const input = createCheckboxInput("input-id");
+    const input = createCheckboxInput("input-id", mockEmptyEventHandler);
 
     expect(input).toStrictEqual<HTMLInputElement>(mockInput);
   });

@@ -19,7 +19,10 @@ export const createLabel = (forId: string, text: string) => {
   return label;
 };
 
-export const createCheckboxInput = (id: string) => {
+export const createCheckboxInput = (
+  id: string,
+  handleCheckboxChange: (event: Event) => void
+) => {
   if (id === "") {
     throw new Error("id cannot be empty string");
   }
@@ -27,11 +30,15 @@ export const createCheckboxInput = (id: string) => {
   const checkBox = document.createElement("input");
   checkBox.setAttribute("type", "checkbox");
   checkBox.setAttribute("id", id.split(" ").join("-"));
+  checkBox.addEventListener("change", handleCheckboxChange);
 
   return checkBox;
 };
 
-export const createWrappedCheckBox = (title: string) => {
+export const createWrappedCheckBox = (
+  title: string,
+  handleCheckboxChange: (event: Event) => void
+) => {
   const wrapper = document.createElement("div");
   wrapper.setAttribute(
     "class",
@@ -41,11 +48,11 @@ export const createWrappedCheckBox = (title: string) => {
       .join("-")} checkbox-wrapper`
   );
 
-  const checkBox = createCheckboxInput(title);
+  const checkBox = createCheckboxInput(title, handleCheckboxChange);
   const label = createLabel(title, title);
 
-  wrapper.append(checkBox);
   wrapper.append(label);
+  wrapper.append(checkBox);
 
   return wrapper;
 };
