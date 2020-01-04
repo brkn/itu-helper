@@ -1,5 +1,3 @@
-import {getIsCourseFull} from "./course-utils";
-
 export const getFormElement = () => document.querySelector<HTMLFormElement>(
   "#body > table > tbody > tr:nth-child(1) > td > table:nth-child(3) > tbody > tr > td:nth-child(2) > form"
 ) as HTMLFormElement;
@@ -9,24 +7,28 @@ export const getCourseRowElements = () => (
     "#body > table > tbody > tr:nth-child(1) > td > table:nth-child(3) > tbody > tr > td:nth-child(2) > table > tbody"
   ) as HTMLTableSectionElement).children;
 
-export const getFullCapacityCoursesListIndexes = (
-  courseRows: HTMLCollection
-) => {
-  const indexes = [] as number[];
+export const getCapacity = (courseRow: HTMLTableRowElement) => {
+  const cellElement = courseRow.querySelector<HTMLTableCellElement>(
+    "td:nth-child(9)"
+  ) as HTMLTableCellElement;
 
-  for (
-    let courseRowIndex = 2;
-    courseRowIndex < courseRows.length;
-    courseRowIndex += 1
-  ) {
-    const element = courseRows[courseRowIndex];
+  return Number(cellElement.innerText);
+};
 
-    if (getIsCourseFull(element)) {
-      indexes.push(courseRowIndex);
-    }
-  }
+export const getEnrolled = (courseRow: HTMLTableRowElement) => {
+  const cellElement = courseRow.querySelector<HTMLTableCellElement>(
+    "td:nth-child(10)"
+  ) as HTMLTableCellElement;
 
-  return indexes;
+  return Number(cellElement.innerText);
+};
+
+export const getMajorsList = (courseRow: HTMLTableRowElement) => {
+  const cellElement = courseRow.querySelector<HTMLTableCellElement>(
+    "td:nth-child(12)"
+  ) as HTMLTableCellElement;
+
+  return cellElement.innerText.split(", ");
 };
 
 export const createLabel = (forId: string, text: string) => {
