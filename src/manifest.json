@@ -8,7 +8,8 @@
       "matches": [
         "http://www.sis.itu.edu.tr/tr/ders_programlari/LSprogramlar/prg.php?*"
       ],
-      "js": ["course-list.js"]
+      "js": ["course-list.js"],
+      "css": ["course-list.css"]
     }
   ],
   "background": {
