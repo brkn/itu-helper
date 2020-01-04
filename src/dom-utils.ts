@@ -1,6 +1,33 @@
-export const getFormElement = () => document.querySelector(
+import {getIsCourseFull} from "./course-utils";
+
+export const getFormElement = () => document.querySelector<HTMLFormElement>(
   "#body > table > tbody > tr:nth-child(1) > td > table:nth-child(3) > tbody > tr > td:nth-child(2) > form"
 ) as HTMLFormElement;
+
+export const getCourseRowElements = () => (
+  document.querySelector<HTMLTableSectionElement>(
+    "#body > table > tbody > tr:nth-child(1) > td > table:nth-child(3) > tbody > tr > td:nth-child(2) > table > tbody"
+  ) as HTMLTableSectionElement).children;
+
+export const getFullCapacityCoursesListIndexes = (
+  courseRows: HTMLCollection
+) => {
+  const indexes = [] as number[];
+
+  for (
+    let courseRowIndex = 2;
+    courseRowIndex < courseRows.length;
+    courseRowIndex += 1
+  ) {
+    const element = courseRows[courseRowIndex];
+
+    if (getIsCourseFull(element)) {
+      indexes.push(courseRowIndex);
+    }
+  }
+
+  return indexes;
+};
 
 export const createLabel = (forId: string, text: string) => {
   if (forId === "") {

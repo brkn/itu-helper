@@ -2,6 +2,7 @@ import {JSDOM} from "jsdom";
 
 import {
   getFormElement,
+  getCourseRowElements,
   createLabel,
   createWrappedCheckBox,
   createCheckboxInput,
@@ -23,6 +24,20 @@ describe("getFormElement", () => {
     expect(returned).not.toBeNull();
   });
 });
+
+describe("getCourseRowElements", () => {
+  beforeAll(async () => {
+    const dom = await JSDOM.fromFile("mocks/course-page.html");
+    (global as any).document = dom.window.document;
+  });
+
+  test("should return an HTML collection, not null", () => {
+    const returned = getCourseRowElements();
+
+    expect(returned).not.toBeNull();
+  });
+});
+
 
 describe("createWrappedCheckBox", () => {
   test("should create a label element succesfully", () => {
