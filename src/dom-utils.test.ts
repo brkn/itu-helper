@@ -6,6 +6,7 @@ import {
   createLabel,
   createWrappedCheckBox,
   createCheckboxInput,
+  createTextInput,
 } from "./dom-utils";
 
 const mockEmptyEventHandler = (event: Event) => {
@@ -69,7 +70,7 @@ describe("createWrappedCheckBox", () => {
     );
     const classname = checkBoxWrapper.getAttribute("class");
 
-    expect(classname).toBe("title-1-2 checkbox-wrapper");
+    expect(classname).toBe("title-1-2 checkbox-input-wrapper");
   });
 });
 
@@ -104,6 +105,23 @@ describe("createCheckboxInput", () => {
     mockInput.setAttribute("id", "input-id");
 
     const input = createCheckboxInput("input-id", mockEmptyEventHandler);
+
+    expect(input).toStrictEqual<HTMLInputElement>(mockInput);
+  });
+});
+
+
+describe("createTextInput", () => {
+  test("should raise error when given empty string for id", () => {
+    expect(() => createTextInput("", mockEmptyEventHandler)).toThrowError();
+  });
+
+  test("should create a text input succesfully", () => {
+    const mockInput = document.createElement("input");
+    mockInput.setAttribute("type", "text");
+    mockInput.setAttribute("id", "input-id");
+
+    const input = createTextInput("input-id", mockEmptyEventHandler);
 
     expect(input).toStrictEqual<HTMLInputElement>(mockInput);
   });

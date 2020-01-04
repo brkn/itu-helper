@@ -62,6 +62,22 @@ export const createCheckboxInput = (
   return checkBox;
 };
 
+export const createTextInput = (
+  id: string,
+  handleTextInputChange: (event: Event) => void
+) => {
+  if (id === "") {
+    throw new Error("id cannot be empty string");
+  }
+
+  const textInput = document.createElement("input");
+  textInput.setAttribute("type", "text");
+  textInput.setAttribute("id", id.split(" ").join("-"));
+  textInput.addEventListener("change", handleTextInputChange);
+
+  return textInput;
+};
+
 export const createWrappedCheckBox = (
   title: string,
   handleCheckboxChange: (event: Event) => void
@@ -72,7 +88,7 @@ export const createWrappedCheckBox = (
     `${title
       .toLowerCase()
       .split(" ")
-      .join("-")} checkbox-wrapper`
+      .join("-")} checkbox-input-wrapper`
   );
 
   const checkBox = createCheckboxInput(title, handleCheckboxChange);
@@ -80,6 +96,28 @@ export const createWrappedCheckBox = (
 
   wrapper.append(label);
   wrapper.append(checkBox);
+
+  return wrapper;
+};
+
+export const createWrappedTextInput = (
+  title: string,
+  handleTextInputChange: (event: Event) => void
+) => {
+  const wrapper = document.createElement("div");
+  wrapper.setAttribute(
+    "class",
+    `${title
+      .toLowerCase()
+      .split(" ")
+      .join("-")} text-input-wrapper`
+  );
+
+  const textInput = createTextInput(title, handleTextInputChange);
+  const label = createLabel(title, title);
+
+  wrapper.append(label);
+  wrapper.append(textInput);
 
   return wrapper;
 };
